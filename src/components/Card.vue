@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import defaultImage from './../assets/logo.png'
 export default {
   name: 'Card',
   props: {
@@ -41,11 +42,13 @@ export default {
     }
   },
   computed: {
-    checkNetwork () {
-      return this.network == null ? 'none' : this.network.name
-    },
     checkImage () {
-      return this.image ? this.image.medium : this.image.original
+      if (this.image) {
+        return this.image.medium || this.image.original
+      } else {
+        return defaultImage
+      }
+      // return this.image !== null ? this.image.medium : this.image.original
     }
   },
   methods: {
@@ -54,7 +57,7 @@ export default {
         name: 'showInfo',
         params: {
           id: this.data.show.id,
-          info: this.data
+          info: this.data.show
         }
       })
     }

@@ -11,8 +11,8 @@
           class="search"
           type="text"
           placeholder="Search..."
-          @keyup.enter="getResult(query)"
-        ><button @click="getResult(query)">Go</button>
+          @keyup.enter="fetchData(query)"
+        ><button @click="fetchData(query)">Go</button>
       </div>
     </div>
     <div>
@@ -33,6 +33,7 @@
 <script>
 import Card from '../components/Card'
 import axios from 'axios'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'Home',
   components: {Card},
@@ -42,15 +43,30 @@ export default {
       results: []
     }
   },
+  computed: {
+    ...mapGetters(['getSearch', 'getResult'])
+  },
   mounted () {
-    this.query = this.$store.getters.getSearchValue
+    this.query = this.getSearch
+    this.results = this.getResult
+  },
+  created () {
+    // this.getResult()
   },
   methods: {
-    getResult (query) {
+    ...mapActions(['setSearchResult', 'setSearchValue']),
+    fetchData (query) {
       axios.get(`http://api.tvmaze.com/search/shows?q=${query}`)
-        .then(response => { this.results = response.data })
+        .then(response => { this.results = response.data }).then(
+          () => {
+            this.setSearchResult(this.results)
+            console.log(this.results)
+            this.setSearchValue(query)
+          }
+        )
     }
   }
+
 }
 
 </script>
