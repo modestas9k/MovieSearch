@@ -19,10 +19,10 @@
       <div class="card__wrapper" >
         <Card
           v-for="result in results"
-          :key="result.show.id"
-          :title="result.show.name"
-          :premiered="result.show.premiered"
-          :image="result.show.image"
+          :key="result.id"
+          :title="result.name"
+          :premiered="result.premiered"
+          :image="result.image"
           :data="result"
         />
       </div>
@@ -50,17 +50,13 @@ export default {
     this.query = this.getSearch
     this.results = this.getResult
   },
-  created () {
-    // this.getResult()
-  },
   methods: {
     ...mapActions(['setSearchResult', 'setSearchValue']),
     fetchData (query) {
       axios.get(`http://api.tvmaze.com/search/shows?q=${query}`)
-        .then(response => { this.results = response.data }).then(
+        .then(response => { this.results = response.data.map((item) => item.show) }).then(
           () => {
             this.setSearchResult(this.results)
-            console.log(this.results)
             this.setSearchValue(query)
           }
         )

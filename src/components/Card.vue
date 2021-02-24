@@ -1,5 +1,4 @@
 <template>
-  <!-- <router-link :to="{path:`/showInfo/${data.show.id}`, props: { info: this.data}}"> -->
   <div
     class="card"
     @click="goInfo()">
@@ -8,9 +7,7 @@
       class="card__image" >
     <h5 class="card__title">{{ title }}</h5>
     <h6 class="card__premiered">{{ premiered }} </h6>
-
   </div>
-  <!-- </router-link> -->
 </template>
 
 <script>
@@ -48,7 +45,6 @@ export default {
       } else {
         return defaultImage
       }
-      // return this.image !== null ? this.image.medium : this.image.original
     }
   },
   methods: {
@@ -56,13 +52,12 @@ export default {
       this.$router.push({
         name: 'showInfo',
         params: {
-          id: this.data.show.id,
-          info: this.data.show
+          id: this.data.id,
+          info: this.data
         }
       })
     }
   }
-
 }
 </script>
 

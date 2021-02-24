@@ -2,9 +2,9 @@
   <div class="main">
     <div class="head">
       <h1>{{ data.name }}</h1>
-      <span>{{ checkRating }}</span>
+      <span v-if="data.rating">{{ checkRating }}</span>
     </div>
-    <h3>{{ data.genres.join(', ') }} | {{ data.type }}</h3>
+    <h3>{{ checkGenres }} {{ data.type ? data.type : '' }}</h3>
     <div class="mid">
       <img :src="checkImage" >
       <div v-html="data.summary"/>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import defaultImage from './../assets/logo.png'
+import backUpImage from './../assets/logo.png'
 import axios from 'axios'
 export default {
   name: 'ShowInfo',
@@ -30,33 +30,29 @@ export default {
   },
   computed: {
     checkRating () {
-      if (this.data.rating.average !== null) {
-        return this.data.rating.average + ' / 10'
-      } else {
-        console.log(this.data.rating.average)
+      if (this.data.rating.average) {
+        return `${this.data.rating.average} / 10`
+      }
+    },
+    checkGenres () {
+      if (this.data.genres && this.data.genres.length >= 1) {
+        return `${this.data.genres.join(', ')} | `
       }
     },
     checkImage () {
       if (this.data.image) {
         return this.data.image.original || this.data.image.medium
       } else {
-        return defaultImage
-      }
-    },
-    checkData () {
-      if (this.info) {
-        return this.info
-      } else {
-        this.fetchShow()
+        return backUpImage
       }
     }
   },
-  mounted () {
-    this.data = this.checkData
-  },
-  methods: {
-    fetchShow () {
-      axios.get(`http://api.tvmaze.com/shows/${this.$route.params.id}`).then((response) => { this.data = response.data })
+  beforeMount () {
+    if (this.info) {
+      this.data = this.info
+    } else {
+      axios.get(`http://api.tvmaze.com/shows/${this.$route.params.id}`)
+        .then((response) => { this.data = response.data })
     }
   }
 }
