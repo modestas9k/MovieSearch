@@ -29,7 +29,7 @@ export default {
       default: () => ' '
     },
     image: {
-      type: Object,
+      type: [Object, String],
       default: () => ''
     }
   },
@@ -40,8 +40,10 @@ export default {
   },
   computed: {
     checkImage () {
-      if (this.image) {
+      if (typeof this.image === 'object') {
         return this.image.medium || this.image.original
+      } else if (typeof this.image === 'string') {
+        return this.image
       } else {
         return defaultImage
       }
