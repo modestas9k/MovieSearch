@@ -1,14 +1,15 @@
 <template>
   <div id="app">
+    <Navigation />
     <router-view />
   </div>
 </template>
 
 <script>
-
+import Navigation from './components/Navigation'
 export default {
-  name: 'App'
-
+  name: 'App',
+  components: {Navigation}
 }
 </script>
 
@@ -20,6 +21,7 @@ body {
     background-repeat: no-repeat;
     text-align: center;
     color: #f5f5f5;
+    margin: 0;
 }
 h1 {
   font-size: 2.8em;
@@ -34,5 +36,19 @@ p {
 }
 b {
   font-weight: 700;
+}
+button.btn {
+  padding: 10px 20px;
+  font-weight: 400;
+  font-size: 1.1em;
+  letter-spacing: 0.03em;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: orange;
+  transition: all 0.2s ease-in-out;
+}
+button.btn:hover {
+  transform: scale(105%);
 }
 </style>
