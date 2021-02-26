@@ -1,12 +1,16 @@
 <template>
   <div
     class="card"
-    @click="goInfo()">
+  >
     <img
       :src="checkImage"
-      class="card__image" >
+      class="card__image"
+      @click="goInfo()" >
     <h5 class="card__title">{{ title }}</h5>
     <h6 class="card__premiered">{{ premiered }} </h6>
+    <span
+      v-if="deleteButton"
+      @click="$emit('deleteItem')">Delete</span>
   </div>
 </template>
 
@@ -31,6 +35,10 @@ export default {
     image: {
       type: [Object, String],
       default: () => ''
+    },
+    deleteButton: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -40,7 +48,7 @@ export default {
   },
   computed: {
     checkImage () {
-      if (typeof this.image === 'object') {
+      if (typeof this.image === 'object' && this.image !== null) {
         return this.image.medium || this.image.original
       } else if (typeof this.image === 'string') {
         return this.image

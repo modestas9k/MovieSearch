@@ -22,13 +22,47 @@ export default new Vuex.Store({
     },
     setWantToWatch ({ commit }, e) {
       commit('setWatch', e)
+    },
+    removeFromAlreadyWatched ({ commit }, payload) {
+      commit('removeFromAlreadyW', payload)
+    },
+    removeFromWantToWatch ({ commit }, payload) {
+      commit('removeFromWantToW', payload)
     }
   },
   mutations: {
     setSearch: (state, e) => (state.searchValue = e),
     setResult: (state, payload) => (state.searchResult = payload),
-    setWatched: (state, e) => (state.alreadyWatched.push(e)),
-    setWatch: (state, e) => (state.wantToWatch.push(e))
+    setWatched: (state, e) => {
+      if (state.alreadyWatched.filter(i => i.id !== e.id)) {
+        state.alreadyWatched.push({
+          id: e.id,
+          image: e.image,
+          name: e.name,
+          premiered: e.premiered
+        })
+        localStorage.setItem('alreadyWatched', JSON.stringify(state.alreadyWatched))
+      }
+    },
+    setWatch: (state, e) => {
+      if (state.wantToWatch.filter(i => i.id !== e.id)) {
+        state.wantToWatch.push({
+          id: e.id,
+          image: e.image,
+          name: e.name,
+          premiered: e.premiered
+        })
+        localStorage.setItem('wantToWatch', JSON.stringify(state.wantToWatch))
+      }
+    },
+    removeFromAlreadyW: (state, payload) => {
+      state.alreadyWatched = state.alreadyWatched.filter(watched => watched.id !== payload.id)
+      localStorage.setItem('alreadyWatched', JSON.stringify(state.alreadyWatched))
+    },
+    removeFromWantToW: (state, payload) => {
+      state.wantToWatch = state.wantToWatch.filter(watch => watch.id !== payload.id)
+      localStorage.setItem('wantToWatch', JSON.stringify(state.wantToWatch))
+    }
   },
   modules: {},
   getters: {

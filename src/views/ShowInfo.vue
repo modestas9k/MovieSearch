@@ -67,7 +67,7 @@ export default {
     }
   },
   beforeMount () {
-    if (this.info) {
+    if (this.info && this.info.summary) {
       this.data = this.info
     } else {
       axios.get(`http://api.tvmaze.com/shows/${this.$route.params.id}`)
