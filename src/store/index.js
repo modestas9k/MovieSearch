@@ -7,8 +7,8 @@ export default new Vuex.Store({
   state: {
     searchValue: '',
     searchResult: [],
-    alreadyWatched: [],
-    wantToWatch: []
+    alreadyWatched: JSON.parse(localStorage.getItem('alreadyWatched')) || [],
+    wantToWatch: JSON.parse(localStorage.getItem('wantToWatch')) || []
   },
   actions: {
     setSearchValue ({ commit }, e) {
