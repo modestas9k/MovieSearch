@@ -3,7 +3,7 @@
     <h1>Already watched</h1>
     <div class="card__wrapper" >
       <Card
-        v-for="result in localStorageResults"
+        v-for="result in results"
         :key="result.id"
         :title="result.name"
         :premiered="result.premiered"
@@ -18,31 +18,24 @@
 
 <script>
 import Card from '../components/Card'
-import { mapGetters } from 'vuex'
 export default {
   name: 'AlreadyWatched',
   components: {Card},
   data () {
     return {
-      localStorageResults: []
+      results: []
     }
-  },
-  computed: {
-    ...mapGetters({ results: 'getAlreadyWatched' })
   },
   mounted () {
-    if (localStorage.getItem('alreadyWatched')) {
-      try {
-        this.localStorageResults = JSON.parse(localStorage.getItem('alreadyWatched'))
-      } catch (e) {
-        localStorage.removeItem('alreadyWatched')
-      }
-    }
+    this.getResult()
   },
   methods: {
+    getResult () {
+      this.results = this.$store.state.alreadyWatched
+    },
     deleteItem (obj) {
-      this.localStorageResults = this.localStorageResults.filter((i) => i.id !== obj.id)
-      return this.$store.dispatch('removeFromAlreadyWatched', obj)
+      this.$store.dispatch('removeFromAlreadyWatched', obj)
+      this.results = this.results.filter((i) => i.id !== obj.id)
     }
   }
 }
