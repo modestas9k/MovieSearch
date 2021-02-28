@@ -6,16 +6,21 @@
       :src="checkImage"
       class="card__image"
       @click="goInfo()" >
-    <h5 class="card__title">{{ title }}</h5>
-    <h6 class="card__premiered">{{ premiered }} </h6>
-    <span
-      v-if="deleteButton"
-      @click="$emit('deleteItem')">Delete</span>
+    <div class="card__text-wrapper">
+      <h5 class="card__title">{{ title }}</h5>
+      <h6 class="card__premiered">{{ premiered }} </h6>
+      <img
+        v-if="deleteButton"
+        class="card__trash"
+        src="../assets/trash.svg"
+        alt="trash"
+        @click="$emit('deleteItem')" >
+    </div>
   </div>
 </template>
 
 <script>
-import defaultImage from './../assets/logo.png'
+import defaultImage from './../assets/default-image.jpg'
 export default {
   name: 'Card',
   props: {
@@ -79,16 +84,21 @@ export default {
     max-width: 150px;
     transition: all 0.2s ease-in-out;
   }
-  .card:hover {
-    transform: scale(110%);
-  }
   .card__image {
     width: 100%;
-
+    min-height: 210px;
     border-radius: 10px;
+    object-fit: cover;
+  }
+  .card__image:hover {
+    /* transform: scale(110%); */
+    cursor: pointer;
+  }
+  .card__text-wrapper {
+    position: relative;
   }
   .card__title {
-    margin: 0.2em;
+    margin: 5px 23px 3px 20px;
     word-wrap: normal;
     color: #f5f5f5;
   }
@@ -99,5 +109,14 @@ export default {
   }
   h6 > span {
     font-size: 0.7em;
+  }
+  .card__trash {
+    width: 20px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  .card__trash:hover {
+    cursor: pointer;
   }
 </style>

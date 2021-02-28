@@ -1,7 +1,7 @@
 <template>
   <div class="nav-wrapper">
     <nav>
-      <span>TV Show</span>
+      <router-link to="/"><span>TV Show</span></router-link>
       <div class="link-wrapper">
         <router-link
           :class="$route.path == '/' ? 'active' : ''"
@@ -26,7 +26,7 @@ export default {
 <style scoped>
   .nav-wrapper {
     background-color: #213747;
-    padding: 0 20px;
+    padding: 0 10px;
   }
   nav {
     display: flex;
@@ -37,6 +37,12 @@ export default {
     margin: 0 auto;
 
   }
+  nav a {
+    text-decoration: none;
+    color: #f5f5f5;
+    font-weight: 600;
+    line-height: 1em;
+  }
   .link-wrapper {
     display: flex;
   }
@@ -44,12 +50,22 @@ export default {
     text-decoration: none;
     color: #f5f5f5;
     font-weight: 600;
-    margin-top: 7px;
-    padding: 10px 20px;
+    /* margin-top: 3px; */
+    padding: 10px 30px;
     border-radius: 10px 10px 0px 0px;
+    border: 1px solid white;
+    border-bottom: none;
     transition: all 0.3s ease-in-out;
   }
   .active {
     background-color: #4c708b;
+    border-bottom: none;
+  }
+  @media (max-width: 600px) {
+    .link-wrapper a {
+      padding: 10px 10px;
+      font-size: 0.9em;
+      font-weight: 300;
+    }
   }
 </style>

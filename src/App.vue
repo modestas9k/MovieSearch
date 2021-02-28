@@ -29,6 +29,7 @@ h1 {
   letter-spacing: 0.025em;
 }
 p {
+  font-family: 'Roboto', 'Open Sans';
   letter-spacing: 0.015em;
   font-size: 0.9em;
   font-weight: 300;
@@ -39,6 +40,7 @@ b {
 }
 button.btn {
   padding: 10px 20px;
+  margin-bottom: 10px;
   font-weight: 400;
   font-size: 1.1em;
   letter-spacing: 0.03em;
@@ -50,5 +52,14 @@ button.btn {
 }
 button.btn:hover {
   transform: scale(105%);
+  background-color: rgb(255, 180, 42);
+}
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2em;
+  }
+  button.btn {
+    font-size: 0.9em;
+  }
 }
 </style>

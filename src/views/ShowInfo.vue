@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import backUpImage from './../assets/logo.png'
+import backUpImage from './../assets/default-image.jpg'
 import axios from 'axios'
 import { mapActions } from 'vuex'
 
@@ -106,6 +106,8 @@ export default {
  .main {
    max-width: 800px;
    margin: 0 auto;
+   padding: 2em;
+   text-align: left;
  }
  .head {
    display: flex;
@@ -114,7 +116,7 @@ export default {
    align-items: center;
  }
  h1 {
-   margin-bottom: 0;
+   margin: 0;
  }
  .head span {
    font-size: 2.8em;
@@ -123,6 +125,7 @@ export default {
  h3 {
    text-align: left;
    font-weight: 500;
+   margin-bottom: 2em;
  }
  .mid {
    display: flex;
@@ -130,9 +133,42 @@ export default {
  }
  img {
    max-width: 300px;
-   margin-right: 20px;
+   margin-right: 2em;
+   border-radius: 20px;
  }
- .main  {
-   text-align: left;
+ .buttons-wrapper {
+   margin-top: 2em;
+ }
+ .buttons-wrapper button:first-child {
+   margin-right: 1em;
+ }
+ @media (max-width: 600px) {
+   .mid {
+     flex-direction: column;
+   }
+   .mid img {
+     align-self: center;
+     margin: 0;
+   }
+   h1 {
+     font-size: 2.3em;
+   }
+   .head span {
+     font-size: 2em;
+   }
+   h3 {
+     font-size: 1.2em;
+   }
+ }
+ @media (max-width: 420px) {
+   h1 {
+     font-size: 2em;
+   }
+   .head span {
+     font-size: 1.5em;
+   }
+   h3 {
+     font-size: 1em;
+   }
  }
 </style>
