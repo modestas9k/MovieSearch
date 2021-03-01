@@ -1,12 +1,20 @@
 <template>
   <div class="main">
-    <div class="head">
+    <div
+      :class="$mq"
+      class="head">
       <h1>{{ data.name }}</h1>
-      <span v-if="data.rating">{{ checkRating }}</span>
+      <div
+        v-if="data.rating && data.rating.average !== null"
+      >
+        <span
+          :class="$mq"
+          class="rating">{{ checkRating }}</span>
+      </div>
     </div>
     <h3>{{ checkGenres }} {{ data.type ? data.type : '' }}</h3>
     <div class="mid">
-      <img :src="checkImage" >
+      <img :src="$mq === 'mobile' ? checkImageMedium : checkImage" >
       <div>
         <div v-html="data.summary"/>
         <div class="buttons-wrapper">
@@ -115,12 +123,34 @@ export default {
    justify-content: space-between;
    align-items: center;
  }
+ .head.mobile {
+   flex-direction: column;
+   align-items: flex-start;
+ }
  h1 {
    margin: 0;
  }
- .head span {
+ .rating {
    font-size: 2.8em;
    font-weight: 500;
+ }
+ .rating::before {
+   display: inline-block;
+   content: ' ';
+   background-image: url('../assets/star.svg');
+   background-size: 30px;
+   width: 30px;
+   height: 30px;
+   margin-right: 5px;
+
+ }
+ .rating.mobile {
+   font-size: 1.2em;
+ }
+ .rating.mobile::before {
+   background-size: 20px;
+   width: 20px;
+   height: 20px;
  }
  h3 {
    text-align: left;
@@ -129,12 +159,14 @@ export default {
  }
  .mid {
    display: flex;
+   align-items: flex-start;
    line-height: 1.25em;
  }
  img {
    max-width: 300px;
    margin-right: 2em;
    border-radius: 20px;
+   object-fit: cover;
  }
  .buttons-wrapper {
    margin-top: 2em;
@@ -142,12 +174,11 @@ export default {
  .buttons-wrapper button:first-child {
    margin-right: 1em;
  }
- @media (max-width: 600px) {
+ @media (max-width: 650px) {
    .mid {
      flex-direction: column;
    }
    .mid img {
-     align-self: center;
      margin: 0;
    }
    h1 {
@@ -156,16 +187,17 @@ export default {
    .head span {
      font-size: 2em;
    }
+   span > image {
+     width: 2em;
+   }
    h3 {
      font-size: 1.2em;
    }
  }
  @media (max-width: 420px) {
    h1 {
-     font-size: 2em;
-   }
-   .head span {
-     font-size: 1.5em;
+     font-size: 1.8em;
+     font-weight: 600;
    }
    h3 {
      font-size: 1em;
