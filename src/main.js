@@ -4,6 +4,16 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import VueMq from 'vue-mq'
+
+Vue.use(VueMq, {
+  breakpoints: { // default breakpoints - customize this
+    mobile: 425,
+    tablet: 768,
+    desktop: Infinity
+  },
+  defaultBreakpoint: 'sm' // customize this for SSR
+})
 
 Vue.config.productionTip = false
 
