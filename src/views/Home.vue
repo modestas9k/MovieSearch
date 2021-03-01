@@ -15,17 +15,15 @@
         ><button @click="fetchData(query)">Go</button>
       </div>
     </div>
-    <div>
-      <div class="card__wrapper" >
-        <Card
-          v-for="result in results"
-          :key="result.id"
-          :title="result.name"
-          :premiered="result.premiered"
-          :image="result.image"
-          :data="result"
-        />
-      </div>
+    <div class="card__wrapper" >
+      <Card
+        v-for="result in results"
+        :key="result.id"
+        :title="result.name"
+        :premiered="result.premiered"
+        :image="result.image"
+        :data="result"
+      />
     </div>
   </div>
 </template>
@@ -34,6 +32,7 @@
 import Card from '../components/Card'
 import axios from 'axios'
 import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'Home',
   components: {Card},
@@ -84,7 +83,7 @@ export default {
   }
   .search__wrapper {
     display: flex;
-    /* justify-content: center; */
+    justify-content: center;
     max-width: 400px;
     margin: 2em auto;
   }
@@ -119,5 +118,13 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
   }
-
+  @media (max-width: 450px) {
+    .welcome__container {
+      margin: 3em 1em;
+    }
+    .search__wrapper {
+      margin: 2em 0;
+      font-size: 0.8em;
+    }
+  }
 </style>

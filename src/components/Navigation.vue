@@ -50,10 +50,10 @@ export default {
     text-decoration: none;
     color: #f5f5f5;
     font-weight: 600;
-    /* margin-top: 3px; */
+    margin-top: 3px;
     padding: 10px 30px;
     border-radius: 10px 10px 0px 0px;
-    border: 1px solid white;
+    border: 1px solid #537895;
     border-bottom: none;
     transition: all 0.3s ease-in-out;
   }
