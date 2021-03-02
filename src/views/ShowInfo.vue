@@ -1,5 +1,7 @@
 <template>
-  <div class="main">
+  <div
+    v-if="data !== {}"
+    class="main">
     <div
       :class="$mq"
       class="head">
@@ -16,7 +18,13 @@
     <div class="mid">
       <img :src="$mq === 'mobile' ? checkImageMedium : checkImage" >
       <div>
-        <div v-html="data.summary"/>
+        <div
+          class="summary"
+          v-html="data.summary"/>
+        <span
+          v-show="message"
+          :class="messageSuccess ? 'success' : 'fail'"
+          class="message">{{ message }}</span>
         <div class="buttons-wrapper">
           <button
             class="btn"
@@ -45,7 +53,9 @@ export default {
   },
   data () {
     return {
-      data: {}
+      data: {},
+      message: '',
+      messageSuccess: true
     }
   },
   computed: {
@@ -87,23 +97,33 @@ export default {
     alreadyWatched () {
       let check = this.$store.state.alreadyWatched.filter((i) => i.id === this.data.id)
       if (check.length < 1) {
+        this.message = 'Successfully added to "Already watched" list'
+        this.messageSuccess = true
         return this.setAlreadyWatched({
           id: this.data.id,
           name: this.data.name,
           premiered: this.data.premiered,
           image: this.checkImageMedium
         })
+      } else {
+        this.message = 'You already added to list'
+        this.messageSuccess = false
       }
     },
     wantToWatch () {
       let check = this.$store.state.wantToWatch.filter((i) => i.id === this.data.id)
       if (check.length < 1) {
+        this.message = 'Successfully added to "Want to watch" list'
+        this.messageSuccess = true
         return this.setWantToWatch({
           id: this.data.id,
           name: this.data.name,
           premiered: this.data.premiered,
           image: this.checkImageMedium
         })
+      } else {
+        this.message = 'You already added to list'
+        this.messageSuccess = false
       }
     }
   }
@@ -167,6 +187,21 @@ export default {
    margin-right: 2em;
    border-radius: 20px;
    object-fit: cover;
+ }
+ .summary {
+   margin-bottom: 3em;
+ }
+ .message {
+   padding: 5px;
+   font-size: 0.7em;
+   letter-spacing: 0.03em;
+   border-radius: 5px;
+ }
+ .success {
+   background: #02940e;
+ }
+ .fail {
+   background: #d2691e;
  }
  .buttons-wrapper {
    margin-top: 2em;
