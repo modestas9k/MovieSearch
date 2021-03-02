@@ -78,7 +78,7 @@ export default {
     if (this.info && this.info.summary) {
       this.data = this.info
     } else {
-      axios.get(`http://api.tvmaze.com/shows/${this.$route.params.id}`)
+      axios.get(`https://api.tvmaze.com/shows/${this.$route.params.id}`)
         .then((response) => { this.data = response.data })
     }
   },

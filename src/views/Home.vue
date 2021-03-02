@@ -52,7 +52,7 @@ export default {
   methods: {
     ...mapActions(['setSearchResult', 'setSearchValue']),
     fetchData (query) {
-      axios.get(`http://api.tvmaze.com/search/shows?q=${query}`)
+      axios.get(`https://api.tvmaze.com/search/shows?q=${query}`)
         .then(response => { this.results = response.data.map((item) => item.show) }).then(
           () => {
             this.setSearchResult(this.results)
