@@ -1,5 +1,7 @@
 <template>
-  <div class="home">
+  <div
+    :class="$mq"
+    class="home">
     <div class="welcome__container">
       <div class="welcome__header">
         <h1>Find Your TV Show</h1>
@@ -73,6 +75,14 @@ export default {
   .home {
     max-width: 960px;
     margin: 0 auto;
+    min-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .home.mobile {
+    min-height: calc(100vh - 55px);
   }
   .welcome__container {
     margin: 3em auto;
